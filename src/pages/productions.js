@@ -1,5 +1,5 @@
 /** Productions archive — gallery wall with filters + search + counter. */
-import { img, esc, fa, icons, seo, CATEGORY_LABELS } from '../js/utils.js';
+import { img, esc, fa, icons, seo } from '../js/utils.js';
 import { headerHTML, footerHTML, mobileMenuHTML, searchOverlayHTML, initChrome } from '../components/Chrome.js';
 import { initMotion, gsap } from '../js/animations.js';
 import productions from '../data/productions.js';

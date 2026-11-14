@@ -4,7 +4,6 @@
  */
 const routes = new Map();
 let notFoundHandler = null;
-let beforeEach = null;
 
 export function route(path, handler) {
   routes.set(path, handler);
@@ -12,10 +11,6 @@ export function route(path, handler) {
 
 export function onNotFound(handler) {
   notFoundHandler = handler;
-}
-
-export function onBeforeEach(fn) {
-  beforeEach = fn;
 }
 
 export function navigate(path, { replace = false } = {}) {
@@ -27,7 +22,7 @@ export function navigate(path, { replace = false } = {}) {
   window.dispatchEvent(new PopStateEvent('popstate'));
 }
 
-export function matchRoute(pathname) {
+function matchRoute(pathname) {
   if (routes.has(pathname)) return { handler: routes.get(pathname), params: {} };
   // dynamic segments like /productions/:slug
   for (const [pattern, handler] of routes) {
@@ -49,7 +44,6 @@ export function matchRoute(pathname) {
 
 export async function render() {
   const pathname = location.pathname;
-  if (beforeEach) beforeEach(pathname);
   const m = matchRoute(pathname);
   const app = document.getElementById('app');
   if (m) {
@@ -57,7 +51,7 @@ export async function render() {
   } else if (notFoundHandler) {
     await notFoundHandler(app);
   }
-  window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+  window.scrollTo({ top: 0, behavior: 'auto' });
 }
 
 export function start() {

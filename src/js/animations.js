@@ -6,30 +6,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/** Standard page entrance: curtain lift + staggered reveals. */
-export function pageIntro(scope = document) {
-  const curtain = document.getElementById('page-curtain');
-  if (reduced) {
-    curtain?.remove();
-    scope.querySelectorAll('.reveal').forEach((el) => el.classList.add('done'));
-    return Promise.resolve();
-  }
-  return new Promise((resolve) => {
-    const tl = gsap.timeline({ onComplete: resolve });
-    if (curtain) {
-      tl.to(curtain, { yPercent: -100, duration: 0.55, ease: 'power3.inOut' })
-        .set(curtain, { display: 'none' });
-    }
-    const items = scope.querySelectorAll('.reveal');
-    if (items.length) {
-      tl.to(items, {
-        opacity: 1, y: 0, duration: 0.85, stagger: 0.07, ease: 'power3.out',
-        onComplete: () => items.forEach((el) => el.classList.add('done')),
-      }, '-=0.2');
-    }
-  });
-}
-
 /** Scroll-triggered reveals for everything marked .reveal-in.
  *  We set the hidden state FROM JS (gsap.fromTo) rather than CSS, so content
  *  is always visible when JS/motion is unavailable. A tiny pre-paint pass

@@ -21,10 +21,6 @@ export function fa(n) {
   return String(n).replace(/\d/g, (d) => '۰۱۲۳۴۵۶۷۸۹'[d]);
 }
 
-export function faYear(iso) {
-  return fa(iso.slice(0, 4));
-}
-
 /** Set page title + meta description + OG tags. */
 export function seo({ title, description, image }) {
   const full = title ? `${title} | گروه سینمایی شمسه فیلم` : 'گروه سینمایی شمسه فیلم';
@@ -73,11 +69,6 @@ export function esc(s) {
   }[c]));
 }
 
-/** Animated number counter (Persian digits) for visible counts. */
-export function faCount(n) {
-  return fa(n);
-}
-
 export const CATEGORY_LABELS = {
   documentary: 'مستند',
   fiction: 'داستانی',
@@ -85,9 +76,3 @@ export const CATEGORY_LABELS = {
   tv: 'برنامه تلویزیونی',
 };
 
-export const CATEGORY_LABELS_PL = {
-  documentary: 'مستندها',
-  fiction: 'آثار داستانی',
-  'music-video': 'نماهنگ‌ها',
-  tv: 'برنامه‌های تلویزیونی',
-};

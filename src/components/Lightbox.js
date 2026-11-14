@@ -65,7 +65,7 @@ export function openLightbox(items, index = 0, meta = null) {
   render();
 }
 
-export function closeLightbox(silent = false) {
+function closeLightbox(silent = false) {
   const lb = document.querySelector('.lightbox');
   if (!lb) return;
   if (state.onKey) document.removeEventListener('keydown', state.onKey);

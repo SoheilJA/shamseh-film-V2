@@ -1,7 +1,6 @@
 /** Shamseh Film — Luminous Archive. Entry point. */
 import './styles/main.css';
-import { start, route, onNotFound, navigate } from './js/router.js';
-import { withTransition } from './components/PageTransition.js';
+import { start } from './js/router.js';
 
 /* boot loader fade */
 const boot = document.getElementById('boot-loader');
@@ -48,6 +47,4 @@ onNotFound(async (app) => {
   await render(app);
 });
 
-/* smooth-ish transitions on internal navigation via history patching */
-const rawNavigate = navigate;
 start();

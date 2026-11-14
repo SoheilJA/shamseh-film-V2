@@ -102,7 +102,6 @@ export async function render(app) {
     list.innerHTML = page.map(itemHTML).join('');
     emptyEl.classList.toggle('hidden', filtered.length > 0);
     moreWrap.classList.toggle('hidden', shown >= filtered.length);
-    moreBtn.querySelector?.('#news-more');
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
       gsap.fromTo(list.children, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.55, stagger: 0.05, ease: 'power3.out' });
     }

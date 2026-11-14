@@ -122,15 +122,19 @@ export async function render(app, params) {
   initChrome();
   initMotion(app);
 
-  /* reading progress */
+  /* reading progress (tear down any previous listener before re-adding) */
   const prog = app.querySelector('#reading-progress');
   const article = app.querySelector('article');
+  if (window.__readingProgressHandler) {
+    window.removeEventListener('scroll', window.__readingProgressHandler);
+  }
   const onScroll = () => {
     const rect = article.getBoundingClientRect();
     const total = rect.height - innerHeight;
     const done = Math.min(1, Math.max(0, -rect.top / Math.max(1, total)));
     prog.style.transform = `scaleX(${done})`;
   };
+  window.__readingProgressHandler = onScroll;
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
