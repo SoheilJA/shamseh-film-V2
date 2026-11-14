@@ -1,5 +1,5 @@
 /** Homepage — "The Opening Sequence" — 7 sections of light. */
-import { img, esc, fa, icons, seo } from '../js/utils.js';
+import { appUrl, img, esc, fa, icons, seo } from '../js/utils.js';
 import { headerHTML, footerHTML, mobileMenuHTML, searchOverlayHTML, initChrome } from '../components/Chrome.js';
 import { productionCard } from '../components/ProductionCard.js';
 import { openLightbox } from '../components/Lightbox.js';
@@ -59,10 +59,10 @@ export async function render(app) {
             اینجا آرشیوی روشن از آثار ماست — مثل چاپ‌هایی روی دیواری آفتابی.
           </p>
           <div class="mt-9 flex flex-wrap items-center gap-4 reveal" data-hero-fade>
-            <a href="/productions" class="btn-primary leaf-sm">تماشای تولیدات
+            <a href="${appUrl('/productions')}" class="btn-primary leaf-sm">تماشای تولیدات
               <i data-lucide="arrow-left" class="w-4 h-4"></i>
             </a>
-            <a href="/about" class="btn-ghost leaf-sm">معرفی شمسه فیلم</a>
+            <a href="${appUrl('/about')}" class="btn-ghost leaf-sm">معرفی شمسه فیلم</a>
           </div>
           <div class="mt-10 flex items-center gap-6 reveal" data-hero-fade>
             <div class="film-strip flex-1" aria-hidden="true"></div>
@@ -72,7 +72,7 @@ export async function render(app) {
 
         <div class="lg:col-span-6 order-1 lg:order-2 relative" data-hero-frame>
           <div class="relative overflow-hidden leaf aspect-[4/3] shadow-frame bg-sand" data-leaf-reveal>
-            <img ${featured.poster ? `src="${img(featured.poster)}"` : 'src="/images/logo-full.png"'} alt="کادر شاخص از تولیدات شمسه فیلم" class="w-full h-full object-cover" data-hero-media data-parallax="0.06" fetchpriority="high" />
+            <img src="${featured.poster ? img(featured.poster) : appUrl('/images/logo-full.png')}" alt="کادر شاخص از تولیدات شمسه فیلم" class="w-full h-full object-cover" data-hero-media data-parallax="0.06" fetchpriority="high" />
             <span class="light-sweep" aria-hidden="true"></span>
           </div>
           <div class="absolute -bottom-5 -right-3 md:-right-6 bg-white leaf-sm border border-line shadow-card px-5 py-3.5 reveal" data-hero-fade>
@@ -103,7 +103,7 @@ export async function render(app) {
             <p class="label-mono label-mono-teal mb-4">SELECTED WORKS</p>
             <h2 class="h-title text-3xl md:text-5xl text-balance">انتخابی از دیوارِ آثار</h2>
           </div>
-          <a href="/productions" class="link-underline text-teal-deep font-semibold flex items-center gap-2">
+          <a href="${appUrl('/productions')}" class="link-underline text-teal-deep font-semibold flex items-center gap-2">
             آرشیو کامل تولیدات
             <i data-lucide="arrow-left" class="w-4 h-4"></i>
           </a>
@@ -173,7 +173,7 @@ export async function render(app) {
                 <p class="mt-1 text-[0.8rem] text-ink-mute">${l}</p>
               </div>`).join('')}
           </div>
-          <a href="/about" class="mt-9 inline-flex items-center gap-2 link-underline text-teal-deep font-semibold reveal-in">
+          <a href="${appUrl('/about')}" class="mt-9 inline-flex items-center gap-2 link-underline text-teal-deep font-semibold reveal-in">
             بیشتر بخوانید
             <i data-lucide="arrow-left" class="w-4 h-4"></i>
           </a>
@@ -194,7 +194,7 @@ export async function render(app) {
             const count = productions.filter((p) => p.category === c.key).length;
             return `
             <div class="cat-panel group relative overflow-hidden leaf-sm border border-line ${i === 0 ? 'open md:flex-[2.4]' : 'md:flex-[1]'} ${c.tint} ${i !== 0 ? 'h-24 md:h-auto' : 'h-[26rem] md:h-auto'}" data-cat="${c.key}">
-              <a href="/productions?cat=${c.key}" class="absolute inset-0 z-10" aria-label="${esc(c.faPl)}"></a>
+              <a href="${appUrl(`/productions?cat=${c.key}`)}" class="absolute inset-0 z-10" aria-label="${esc(c.faPl)}"></a>
               ${sample?.poster ? `
               <div class="absolute inset-0 ${i === 0 ? 'opacity-100' : 'opacity-0 md:group-hover:opacity-100 group-open:opacity-100'} transition-opacity duration-700">
                 <img src="${img(sample.poster)}" alt="" class="w-full h-full object-cover" loading="lazy" />
@@ -229,13 +229,13 @@ export async function render(app) {
             <p class="label-mono label-mono-teal mb-4">NEWS & EVENTS</p>
             <h2 class="h-title text-3xl md:text-5xl text-balance">دفترِ رویدادها</h2>
           </div>
-          <a href="/news" class="link-underline text-teal-deep font-semibold flex items-center gap-2">
+          <a href="${appUrl('/news')}" class="link-underline text-teal-deep font-semibold flex items-center gap-2">
             همهٔ اخبار
             <i data-lucide="arrow-left" class="w-4 h-4"></i>
           </a>
         </div>
         <div class="grid lg:grid-cols-12 gap-10">
-          <a href="/news/${news[0].slug}" class="lg:col-span-7 group reveal-in">
+          <a href="${appUrl(`/news/${news[0].slug}`)}" class="lg:col-span-7 group reveal-in">
             ${news[0].image ? `
             <div class="leaf overflow-hidden aspect-[16/10] shadow-frame bg-sand zoomable">
               <img src="${img(news[0].image)}" alt="${esc(news[0].title)}" class="w-full h-full object-cover" loading="lazy" />
@@ -251,7 +251,7 @@ export async function render(app) {
           </a>
           <div class="lg:col-span-5 lg:border-s lg:border-line lg:ps-10 flex flex-col">
             ${news.slice(1, 5).map((n, i) => `
-            <a href="/news/${n.slug}" class="group flex-1 py-5 ${i > 0 ? 'border-t border-line' : 'pt-0'} reveal-in">
+            <a href="${appUrl(`/news/${n.slug}`)}" class="group flex-1 py-5 ${i > 0 ? 'border-t border-line' : 'pt-0'} reveal-in">
               <div class="flex items-baseline justify-between gap-4">
                 <p class="label-mono">${esc(n.dateFa)}</p>
                 <span class="label-mono !text-[0.55rem]" dir="ltr">N.${String(i + 2).padStart(2, '0')}</span>
@@ -272,7 +272,7 @@ export async function render(app) {
             <p class="label-mono label-mono-teal mb-4">GALLERY</p>
             <h2 class="h-title text-3xl md:text-5xl text-balance">برگه‌هایی از پشت صحنه</h2>
           </div>
-          <a href="/gallery" class="link-underline text-teal-deep font-semibold flex items-center gap-2">
+          <a href="${appUrl('/gallery')}" class="link-underline text-teal-deep font-semibold flex items-center gap-2">
             گالری کامل
             <i data-lucide="arrow-left" class="w-4 h-4"></i>
           </a>
@@ -300,7 +300,7 @@ export async function render(app) {
           برای همکاری، سفارش تولید یا بازدید از آرشیو، با ما در تماس باشید.
         </p>
         <div class="mt-10 flex flex-wrap justify-center gap-4 reveal-in">
-          <a href="/contact" class="btn-primary leaf-sm !bg-gold !text-ink-deep hover:!bg-gold-tint">
+          <a href="${appUrl('/contact')}" class="btn-primary leaf-sm !bg-gold !text-ink-deep hover:!bg-gold-tint">
             ارتباط با شمسه فیلم
             <i data-lucide="arrow-left" class="w-4 h-4"></i>
           </a>

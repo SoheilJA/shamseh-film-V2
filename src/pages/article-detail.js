@@ -1,5 +1,5 @@
 /** Article detail — reading experience with progress line, related, prev/next. */
-import { img, esc, icons, seo } from '../js/utils.js';
+import { appUrl, img, esc, icons, seo } from '../js/utils.js';
 import { headerHTML, footerHTML, mobileMenuHTML, searchOverlayHTML, initChrome } from '../components/Chrome.js';
 import { initMotion } from '../js/animations.js';
 import news from '../data/news.js';
@@ -32,8 +32,8 @@ export async function render(app, params) {
         <div class="absolute inset-0 shamseh-pattern opacity-30" aria-hidden="true"></div>
         <div class="relative max-w-4xl mx-auto px-5 md:px-8 pt-12 md:pt-16 pb-10 text-center">
           <nav class="flex items-center justify-center gap-2 text-[0.8rem] text-ink-mute mb-7 reveal-in" aria-label="مسیر">
-            <a href="/" class="hover:text-teal-deep transition-colors">خانه</a><span>/</span>
-            <a href="/news" class="hover:text-teal-deep transition-colors">اخبار</a>
+            <a href="${appUrl('/')}" class="hover:text-teal-deep transition-colors">خانه</a><span>/</span>
+            <a href="${appUrl('/news')}" class="hover:text-teal-deep transition-colors">اخبار</a>
           </nav>
           <p class="label-mono label-mono-teal mb-4">${esc(n.dateFa)}</p>
           <h1 class="h-display text-3xl md:text-5xl leading-[1.35] text-balance reveal-in">${esc(n.title)}</h1>
@@ -90,7 +90,7 @@ export async function render(app, params) {
           <h2 class="h-title text-2xl mb-8">اخبار مرتبط</h2>
           <div class="grid sm:grid-cols-2 gap-8">
             ${related.map((r) => `
-            <a href="/news/${r.slug}" class="group flex gap-5 items-center reveal-in">
+            <a href="${appUrl(`/news/${r.slug}`)}" class="group flex gap-5 items-center reveal-in">
               ${r.image ? `<span class="leaf-xs w-24 h-20 overflow-hidden bg-sand shrink-0"><img src="${img(r.image)}" alt="" class="w-full h-full object-cover" loading="lazy" /></span>` : ''}
               <span>
                 <span class="label-mono block mb-2">${esc(r.dateFa)}</span>
@@ -103,11 +103,11 @@ export async function render(app, params) {
 
       <nav class="border-t border-line" aria-label="ناوبری اخبار">
         <div class="max-w-[88rem] mx-auto grid grid-cols-2">
-          <a href="/news/${prev.slug}" class="group py-9 px-5 md:px-8 border-e border-line hover:bg-sand/50 transition-colors">
+          <a href="${appUrl(`/news/${prev.slug}`)}" class="group py-9 px-5 md:px-8 border-e border-line hover:bg-sand/50 transition-colors">
             <p class="label-mono mb-2">→ خبر قبلی</p>
             <p class="font-bold group-hover:text-teal-deep transition-colors line-clamp-1">${esc(prev.title)}</p>
           </a>
-          <a href="/news/${next.slug}" class="group py-9 px-5 md:px-8 text-start hover:bg-sand/50 transition-colors">
+          <a href="${appUrl(`/news/${next.slug}`)}" class="group py-9 px-5 md:px-8 text-start hover:bg-sand/50 transition-colors">
             <p class="label-mono mb-2">خبر بعدی ←</p>
             <p class="font-bold group-hover:text-teal-deep transition-colors line-clamp-1">${esc(next.title)}</p>
           </a>

@@ -1,5 +1,5 @@
 /** About page — the story of light (only as supported by real content). */
-import { img, esc, fa, icons, seo } from '../js/utils.js';
+import { appUrl, img, esc, fa, icons, seo } from '../js/utils.js';
 import { headerHTML, footerHTML, mobileMenuHTML, searchOverlayHTML, initChrome } from '../components/Chrome.js';
 import { initMotion } from '../js/animations.js';
 import productions from '../data/productions.js';
@@ -99,7 +99,7 @@ export async function render(app) {
       <div class="max-w-3xl mx-auto px-5 md:px-8 text-center">
         <p class="label-mono label-mono-teal mb-5 reveal-in" dir="ltr">THE MARK · نشان</p>
         <h2 class="h-title text-2xl md:text-4xl mb-8 reveal-in">برگی فیروزه‌ای، امضایی طلایی</h2>
-        <img src="/images/logo-full.png" alt="نشان گروه سینمایی شمسه فیلم" width="220" height="101" class="mx-auto h-24 md:h-28 w-auto reveal-in" />
+        <img src="${appUrl('/images/logo-full.png')}" alt="نشان گروه سینمایی شمسه فیلم" width="220" height="101" class="mx-auto h-24 md:h-28 w-auto reveal-in" />
         <div class="prose-fa mt-8 reveal-in">
           <p>
             نشان شمسه فیلم از دو عصر ساخته شده است: قابی برگ‌مانند به رنگ فیروزه — رنگ کاشی‌های
@@ -117,8 +117,8 @@ export async function render(app) {
       <div class="relative max-w-3xl mx-auto px-5 md:px-8 py-16 md:py-20 text-center">
         <h2 class="h-display text-3xl md:text-5xl text-balance reveal-in">نورِ روایتِ بعدی را با هم بسازیم.</h2>
         <div class="mt-9 flex flex-wrap justify-center gap-4 reveal-in">
-          <a href="/productions" class="btn-primary leaf-sm !bg-gold !text-ink-deep hover:!bg-gold-tint">دیدن آرشیو تولیدات</a>
-          <a href="/contact" class="btn-ghost leaf-sm !bg-transparent !border-paper/25 !text-paper hover:!border-gold hover:!text-gold">ارتباط با ما</a>
+          <a href="${appUrl('/productions')}" class="btn-primary leaf-sm !bg-gold !text-ink-deep hover:!bg-gold-tint">دیدن آرشیو تولیدات</a>
+          <a href="${appUrl('/contact')}" class="btn-ghost leaf-sm !bg-transparent !border-paper/25 !text-paper hover:!border-gold hover:!text-gold">ارتباط با ما</a>
         </div>
       </div>
     </section>

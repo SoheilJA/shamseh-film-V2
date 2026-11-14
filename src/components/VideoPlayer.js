@@ -1,5 +1,5 @@
 /** Video preview block: aparat embed in leaf frame with custom play cover. */
-import { esc } from '../js/utils.js';
+import { appUrl, esc } from '../js/utils.js';
 
 /**
  * @param {string[]} aparatHashes
@@ -11,7 +11,7 @@ export function videoBlock(aparatHashes, poster, title = '') {
   return `
   <div class="video-preview" data-video-block>
     <div class="relative leaf overflow-hidden bg-ink aspect-video group/vp">
-      <img src="${poster || ''}" alt="${title ? `پیش‌نمایش ${esc(title)}` : 'پیش‌نمایش ویدیو'}" class="absolute inset-0 w-full h-full object-cover opacity-90" loading="lazy" />
+      <img src="${appUrl(poster || '')}" alt="${title ? `پیش‌نمایش ${esc(title)}` : 'پیش‌نمایش ویدیو'}" class="absolute inset-0 w-full h-full object-cover opacity-90" loading="lazy" />
       <div class="absolute inset-0 bg-gradient-to-t from-ink-deep/50 via-transparent to-transparent" aria-hidden="true"></div>
       <button type="button" class="vp-play absolute inset-0 grid place-items-center" data-hash="${hash}" aria-label="پخش پیش‌نمایش ${esc(title)}">
         <span class="relative grid place-items-center w-20 h-20 md:w-24 md:h-24 rounded-full bg-gold text-ink-deep shadow-float transition-transform duration-500 group-hover/vp:scale-110" style="transition-timing-function:var(--ease-soft)">

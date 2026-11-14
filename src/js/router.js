@@ -1,7 +1,9 @@
 /**
  * Lightweight hash-free History router.
- * Routes render into #app; every route works with direct open + refresh.
+ * Routes render into #app, relative to Vite's deployment base.
  */
+import { appUrl } from './utils.js';
+
 const routes = new Map();
 let notFoundHandler = null;
 
@@ -14,6 +16,7 @@ export function onNotFound(handler) {
 }
 
 export function navigate(path, { replace = false } = {}) {
+  path = appUrl(path);
   if (replace) {
     history.replaceState({}, '', path);
   } else {
@@ -43,7 +46,8 @@ function matchRoute(pathname) {
 }
 
 export async function render() {
-  const pathname = location.pathname;
+  const base = import.meta.env.BASE_URL;
+  const pathname = ('/' + location.pathname.slice(base.length)).replace(/\/+$/, '') || '/';
   const m = matchRoute(pathname);
   const app = document.getElementById('app');
   if (m) {
@@ -60,11 +64,14 @@ export function start() {
     const a = e.target.closest('a');
     if (!a) return;
     const href = a.getAttribute('href');
-    if (!href || href.startsWith('http') || href.startsWith('#') || href.startsWith('tel:') || href.startsWith('mailto:')) return;
-    if (a.target === '_blank') return;
+    if (!href || href.startsWith('#') || a.hasAttribute('download')) return;
+    const url = new URL(a.href);
+    if (url.origin !== location.origin || !url.pathname.startsWith(import.meta.env.BASE_URL)) return;
+    if (a.target && a.target !== '_self') return;
+    if (e.defaultPrevented || e.button !== 0) return;
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     e.preventDefault();
-    navigate(href);
+    navigate(url.pathname + url.search + url.hash);
   });
   render();
 }

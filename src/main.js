@@ -1,6 +1,6 @@
 /** Shamseh Film — Luminous Archive. Entry point. */
 import './styles/main.css';
-import { start } from './js/router.js';
+import { start, route, onNotFound } from './js/router.js';
 
 /* boot loader fade */
 const boot = document.getElementById('boot-loader');

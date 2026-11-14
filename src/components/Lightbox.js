@@ -1,5 +1,5 @@
 /** Lightbox — ivory translucent backdrop, ink controls, keyboard + swipe. */
-import { esc } from '../js/utils.js';
+import { appUrl, esc } from '../js/utils.js';
 
 let state = { items: [], index: 0, onClose: null };
 
@@ -34,7 +34,7 @@ export function openLightbox(items, index = 0, meta = null) {
   const render = () => {
     const item = state.items[state.index];
     const im = lb.querySelector('img');
-    im.src = item.src;
+    im.src = appUrl(item.src);
     im.alt = item.caption || '';
     lb.querySelector('.cap-text').textContent = item.caption || '';
     lb.querySelector('.cap-count').textContent = `${state.index + 1} / ${state.items.length}`;

@@ -1,5 +1,5 @@
 /** Productions archive — gallery wall with filters + search + counter. */
-import { img, esc, fa, icons, seo } from '../js/utils.js';
+import { appUrl, img, esc, fa, icons, seo } from '../js/utils.js';
 import { headerHTML, footerHTML, mobileMenuHTML, searchOverlayHTML, initChrome } from '../components/Chrome.js';
 import { initMotion, gsap } from '../js/animations.js';
 import productions from '../data/productions.js';
@@ -89,7 +89,7 @@ export async function render(app, params, query = new URLSearchParams(location.s
   let q = '';
 
   const card = (p, i) => `
-    <a href="/productions/${p.slug}" class="print-card group/print reveal-in" aria-label="${esc(p.title)}">
+    <a href="${appUrl(`/productions/${p.slug}`)}" class="print-card group/print reveal-in" aria-label="${esc(p.title)}">
       <div class="print-frame leaf overflow-hidden aspect-[3/4] zoomable relative">
         ${p.poster ? `<img src="${img(p.poster)}" alt="پوستر ${esc(p.title)}" class="w-full h-full object-cover" loading="${i < 8 ? 'eager' : 'lazy'}" />` : '<span class="grid w-full h-full place-items-center bg-sand text-ink-mute text-sm">بدون تصویر</span>'}
         <div class="absolute inset-0 bg-teal/0 group-hover/print:bg-teal-tint/40 transition-colors duration-500" aria-hidden="true"></div>
@@ -126,7 +126,7 @@ export async function render(app, params, query = new URLSearchParams(location.s
       activeCat = chip.dataset.cat;
       app.querySelectorAll('#filter-chips .chip').forEach((c) => c.classList.toggle('active', c === chip));
       apply();
-      history.replaceState({}, '', activeCat === 'all' ? '/productions' : `/productions?cat=${activeCat}`);
+      history.replaceState({}, '', appUrl(activeCat === 'all' ? '/productions' : `/productions?cat=${activeCat}`));
     });
   });
   searchInput?.addEventListener('input', () => { q = searchInput.value.trim(); apply(false); });

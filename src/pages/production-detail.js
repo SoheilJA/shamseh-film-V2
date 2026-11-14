@@ -1,5 +1,5 @@
 /** Production detail — editorial feature page like a film catalogue. */
-import { img, esc, fa, icons, seo } from '../js/utils.js';
+import { appUrl, img, esc, fa, icons, seo } from '../js/utils.js';
 import { headerHTML, footerHTML, mobileMenuHTML, searchOverlayHTML, initChrome } from '../components/Chrome.js';
 import { videoBlock, initVideoBlocks } from '../components/VideoPlayer.js';
 import { openLightbox } from '../components/Lightbox.js';
@@ -47,11 +47,11 @@ export async function render(app, params) {
       <div class="absolute inset-0 shamseh-pattern opacity-35" aria-hidden="true"></div>
       <div class="relative max-w-[88rem] mx-auto px-5 md:px-8 pt-12 md:pt-16 pb-12 md:pb-16">
         <nav class="flex items-center gap-2 text-[0.8rem] text-ink-mute mb-8 reveal-in" aria-label="مسیر">
-          <a href="/" class="hover:text-teal-deep transition-colors">خانه</a>
+          <a href="${appUrl('/')}" class="hover:text-teal-deep transition-colors">خانه</a>
           <span aria-hidden="true">/</span>
-          <a href="/productions" class="hover:text-teal-deep transition-colors">تولیدات</a>
+          <a href="${appUrl('/productions')}" class="hover:text-teal-deep transition-colors">تولیدات</a>
           <span aria-hidden="true">/</span>
-          <a href="/productions?cat=${p.category}" class="hover:text-teal-deep transition-colors">${esc(p.categoryFa)}</a>
+          <a href="${appUrl(`/productions?cat=${p.category}`)}" class="hover:text-teal-deep transition-colors">${esc(p.categoryFa)}</a>
         </nav>
         <div class="grid lg:grid-cols-12 gap-10 lg:gap-14 items-end">
           <div class="lg:col-span-7">
@@ -132,11 +132,11 @@ export async function render(app, params) {
       <div class="max-w-[88rem] mx-auto px-5 md:px-8">
         <div class="flex items-end justify-between gap-6 mb-10">
           <h2 class="h-title text-2xl md:text-3xl">آثار مرتبط</h2>
-          <a href="/productions?cat=${p.category}" class="link-underline text-teal-deep font-semibold text-[0.9rem]">سایر ${esc(p.categoryFa)}ها</a>
+          <a href="${appUrl(`/productions?cat=${p.category}`)}" class="link-underline text-teal-deep font-semibold text-[0.9rem]">سایر ${esc(p.categoryFa)}ها</a>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8">
           ${related.map((r) => `
-          <a href="/productions/${r.slug}" class="print-card group/print reveal-in">
+          <a href="${appUrl(`/productions/${r.slug}`)}" class="print-card group/print reveal-in">
             <div class="print-frame leaf overflow-hidden aspect-[3/4] zoomable relative">
               ${r.poster ? `<img src="${img(r.poster)}" alt="پوستر ${esc(r.title)}" class="w-full h-full object-cover" loading="lazy" />` : '<span class="grid w-full h-full place-items-center bg-sand text-ink-mute text-sm">بدون تصویر</span>'}
               <span class="view-badge leaf-xs" aria-hidden="true">
@@ -155,11 +155,11 @@ export async function render(app, params) {
     <!-- prev / next -->
     <nav class="border-t border-line" aria-label="ناوبری اثرها">
       <div class="max-w-[88rem] mx-auto grid grid-cols-2">
-        <a href="/productions/${prev.slug}" class="group py-10 md:py-14 px-5 md:px-8 border-e border-line hover:bg-sand/50 transition-colors">
+        <a href="${appUrl(`/productions/${prev.slug}`)}" class="group py-10 md:py-14 px-5 md:px-8 border-e border-line hover:bg-sand/50 transition-colors">
           <p class="label-mono mb-3">→ اثر قبلی</p>
           <p class="h-title text-lg md:text-2xl group-hover:text-teal-deep transition-colors">${esc(prev.title)}</p>
         </a>
-        <a href="/productions/${next.slug}" class="group py-10 md:py-14 px-5 md:px-8 text-start hover:bg-sand/50 transition-colors">
+        <a href="${appUrl(`/productions/${next.slug}`)}" class="group py-10 md:py-14 px-5 md:px-8 text-start hover:bg-sand/50 transition-colors">
           <p class="label-mono mb-3">اثر بعدی ←</p>
           <p class="h-title text-lg md:text-2xl group-hover:text-teal-deep transition-colors">${esc(next.title)}</p>
         </a>

@@ -10,9 +10,16 @@ const webpOK = (() => {
   }
 })();
 
+/** Resolve app-local URLs under Vite's deployment base. */
+export function appUrl(path) {
+  const base = import.meta.env.BASE_URL;
+  if (!path.startsWith('/') || path.startsWith('//') || path.startsWith(base)) return path;
+  return base + path.slice(1);
+}
+
 /** Prefer .webp variant when the browser supports it. */
 export function img(src) {
-  if (!src) return '/images/logo-full.png';
+  src = appUrl(src || '/images/logo-full.png');
   if (!webpOK || !src.endsWith('.jpg')) return src;
   return src.replace(/\.jpg$/, '.webp');
 }
@@ -40,7 +47,7 @@ export function seo({ title, description, image }) {
     set('meta[property="og:description"]', 'content', description);
   }
   set('meta[property="og:title"]', 'content', full);
-  if (image) set('meta[property="og:image"]', 'content', image);
+  if (image) set('meta[property="og:image"]', 'content', new URL(appUrl(image), location.origin).href);
 }
 
 /** Render lucide icons inside a container after DOM update.
@@ -75,4 +82,3 @@ export const CATEGORY_LABELS = {
   'music-video': 'نماهنگ',
   tv: 'برنامه تلویزیونی',
 };
-

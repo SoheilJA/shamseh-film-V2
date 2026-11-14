@@ -1,5 +1,5 @@
 /** Header, footer, mobile menu, search overlay, custom cursor, page transitions. */
-import { img, esc, icons } from '../js/utils.js';
+import { appUrl, img, esc, icons } from '../js/utils.js';
 import company from '../data/company.js';
 import productions from '../data/productions.js';
 import news from '../data/news.js';
@@ -8,7 +8,7 @@ import { navigate } from '../js/router.js';
 /* ------------------------------------------------------------- header */
 export function headerHTML(active) {
   const link = (href, label, key) => `
-    <a href="${href}" class="nav-link link-underline relative py-2 text-[0.95rem] font-medium text-ink transition-colors hover:text-teal-deep ${active === key ? 'active text-teal-deep' : ''}">
+    <a href="${appUrl(href)}" class="nav-link link-underline relative py-2 text-[0.95rem] font-medium text-ink transition-colors hover:text-teal-deep ${active === key ? 'active text-teal-deep' : ''}">
       <span class="nav-dot" aria-hidden="true"></span>${label}
     </a>`;
   const cats = [
@@ -26,19 +26,19 @@ export function headerHTML(active) {
   <header class="site-header fixed top-0 inset-x-0 z-[110]" id="site-header">
     <div class="mx-auto max-w-[88rem] px-5 md:px-8">
       <div class="flex items-center justify-between h-[4.4rem] md:h-[5.2rem]">
-        <a href="/" class="flex items-center gap-3 shrink-0" aria-label="شمسه فیلم — خانه">
-          <img src="/images/logo-full.png" alt="گروه سینمایی شمسه فیلم" width="156" height="72" class="h-11 md:h-[3.4rem] w-auto" />
+        <a href="${appUrl('/')}" class="flex items-center gap-3 shrink-0" aria-label="شمسه فیلم — خانه">
+          <img src="${appUrl('/images/logo-full.png')}" alt="گروه سینمایی شمسه فیلم" width="156" height="72" class="h-11 md:h-[3.4rem] w-auto" />
         </a>
         <nav class="hidden lg:flex items-center gap-8" aria-label="ناوبری اصلی">
           <div class="has-mega relative">
-            <a href="/productions" class="nav-link link-underline relative py-2 text-[0.95rem] font-medium flex items-center gap-1.5 ${['productions', 'production'].includes(active) ? 'active text-teal-deep' : ''}">
+            <a href="${appUrl('/productions')}" class="nav-link link-underline relative py-2 text-[0.95rem] font-medium flex items-center gap-1.5 ${['productions', 'production'].includes(active) ? 'active text-teal-deep' : ''}">
               <span class="nav-dot" aria-hidden="true"></span>تولیدات
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
             </a>
             <div class="mega-panel !visible-hidden opacity-0" style="inset-inline-start:auto; inset-inline-end:-1rem; width:min(46rem,90vw);">
               <div class="grid grid-cols-4 gap-0">
                 ${cats.map(([key, label]) => `
-                  <a href="/productions?cat=${key}" class="group/cat p-5 border-s border-line first:border-s-0 hover:bg-teal-tint/50 transition-colors">
+                  <a href="${appUrl(`/productions?cat=${key}`)}" class="group/cat p-5 border-s border-line first:border-s-0 hover:bg-teal-tint/50 transition-colors">
                     <span class="label-mono label-mono-teal !text-[0.58rem]">${esc(key)}</span>
                     <div class="leaf-sm overflow-hidden mt-3 aspect-[4/3] bg-sand">
                       ${previews[key] ? `<img src="${img(previews[key])}" alt="${esc(label)}" class="w-full h-full object-cover" loading="lazy" />` : ''}
@@ -80,7 +80,7 @@ export function footerHTML() {
     <div class="relative max-w-[88rem] mx-auto px-5 md:px-8 pt-16 pb-8">
       <div class="grid gap-12 md:grid-cols-12">
         <div class="md:col-span-5">
-          <img src="/images/logo-full.png" alt="گروه سینمایی شمسه فیلم" width="170" height="78" class="h-14 w-auto brightness-0 invert opacity-90" />
+          <img src="${appUrl('/images/logo-full.png')}" alt="گروه سینمایی شمسه فیلم" width="170" height="78" class="h-14 w-auto brightness-0 invert opacity-90" />
           <p class="mt-6 text-[0.95rem] leading-8 text-paper/70 max-w-sm">
             آرشیوی روشن از تولیدات سینمایی؛ از مستند و فیلم داستانی تا نماهنگ و برنامه تلویزیونی.
             سینما، هنرِ نور است و ما با نور روایت می‌سازیم.
@@ -89,12 +89,12 @@ export function footerHTML() {
         <nav class="md:col-span-3" aria-label="پیوندهای سایت">
           <p class="label-mono !text-gold/80 mb-5">MENU</p>
           <ul class="space-y-3.5 text-[0.95rem]">
-            <li><a href="/" class="link-underline text-paper/80 hover:text-gold transition-colors">خانه</a></li>
-            <li><a href="/productions" class="link-underline text-paper/80 hover:text-gold transition-colors">تولیدات</a></li>
-            <li><a href="/news" class="link-underline text-paper/80 hover:text-gold transition-colors">اخبار</a></li>
-            <li><a href="/about" class="link-underline text-paper/80 hover:text-gold transition-colors">معرفی</a></li>
-            <li><a href="/gallery" class="link-underline text-paper/80 hover:text-gold transition-colors">گالری تصاویر</a></li>
-            <li><a href="/contact" class="link-underline text-paper/80 hover:text-gold transition-colors">ارتباط با ما</a></li>
+            <li><a href="${appUrl('/')}" class="link-underline text-paper/80 hover:text-gold transition-colors">خانه</a></li>
+            <li><a href="${appUrl('/productions')}" class="link-underline text-paper/80 hover:text-gold transition-colors">تولیدات</a></li>
+            <li><a href="${appUrl('/news')}" class="link-underline text-paper/80 hover:text-gold transition-colors">اخبار</a></li>
+            <li><a href="${appUrl('/about')}" class="link-underline text-paper/80 hover:text-gold transition-colors">معرفی</a></li>
+            <li><a href="${appUrl('/gallery')}" class="link-underline text-paper/80 hover:text-gold transition-colors">گالری تصاویر</a></li>
+            <li><a href="${appUrl('/contact')}" class="link-underline text-paper/80 hover:text-gold transition-colors">ارتباط با ما</a></li>
           </ul>
         </nav>
         <div class="md:col-span-4">
@@ -141,14 +141,14 @@ export function mobileMenuHTML() {
     <div class="absolute inset-0 shamseh-pattern opacity-40" aria-hidden="true"></div>
     <div class="relative min-h-full flex flex-col px-6 pt-6 pb-10">
       <div class="flex items-center justify-between h-[4.4rem]">
-        <img src="/images/logo-full.png" alt="گروه سینمایی شمسه فیلم" width="140" height="64" class="h-10 w-auto" />
+        <img src="${appUrl('/images/logo-full.png')}" alt="گروه سینمایی شمسه فیلم" width="140" height="64" class="h-10 w-auto" />
         <button type="button" id="menu-close" class="grid place-items-center w-11 h-11 rounded-full border border-line bg-white/80" aria-label="بستن منو">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
       <nav class="flex-1 flex flex-col justify-center gap-1" aria-label="ناوبری موبایل">
         ${items.map((it) => `
-          <a href="${it.href}" class="stagger-item group flex items-baseline gap-4 py-3 border-b border-line/70">
+          <a href="${appUrl(it.href)}" class="stagger-item group flex items-baseline gap-4 py-3 border-b border-line/70">
             <span class="label-mono !text-teal">${it.n}</span>
             <span class="h-display text-[2rem] leading-none group-hover:text-teal-deep transition-colors">${esc(it.label)}</span>
           </a>`).join('')}
@@ -156,7 +156,7 @@ export function mobileMenuHTML() {
       <div class="stagger-item mt-8">
         <p class="label-mono mb-3">CATEGORIES</p>
         <div class="flex flex-wrap gap-2">
-          ${cats.map(([href, label]) => `<a href="${href}" class="leaf-xs bg-white border border-line px-4 py-2 text-[0.85rem] font-medium text-ink-soft hover:text-teal-deep hover:border-teal transition-colors">${esc(label)}</a>`).join('')}
+          ${cats.map(([href, label]) => `<a href="${appUrl(href)}" class="leaf-xs bg-white border border-line px-4 py-2 text-[0.85rem] font-medium text-ink-soft hover:text-teal-deep hover:border-teal transition-colors">${esc(label)}</a>`).join('')}
         </div>
       </div>
       <div class="stagger-item mt-8 pt-6 border-t border-line">
@@ -270,7 +270,7 @@ export function initChrome() {
       sResults.innerHTML = `
         ${qp.length ? `<p class="label-mono mb-3">PRODUCTIONS · ${qp.length}</p>
         <ul class="divide-y divide-line">${qp.slice(0, 8).map((p) => `
-          <li><a href="/productions/${p.slug}" class="flex items-center gap-4 py-3.5 group">
+          <li><a href="${appUrl(`/productions/${p.slug}`)}" class="flex items-center gap-4 py-3.5 group">
             <span class="leaf-xs w-14 h-10 overflow-hidden bg-sand shrink-0">${p.poster ? `<img src="${img(p.poster)}" alt="" class="w-full h-full object-cover" loading="lazy"/>` : ''}</span>
             <span class="flex-1">
               <span class="block font-bold group-hover:text-teal-deep transition-colors">${esc(p.title)}</span>
@@ -280,7 +280,7 @@ export function initChrome() {
           </a></li>`).join('')}</ul>` : ''}
         ${qn.length ? `<p class="label-mono mt-7 mb-3">NEWS · ${qn.length}</p>
         <ul class="divide-y divide-line">${qn.slice(0, 6).map((n) => `
-          <li><a href="/news/${n.slug}" class="flex items-center gap-4 py-3.5 group">
+          <li><a href="${appUrl(`/news/${n.slug}`)}" class="flex items-center gap-4 py-3.5 group">
             <span class="flex-1">
               <span class="block font-bold group-hover:text-teal-deep transition-colors">${esc(n.title)}</span>
               <span class="block text-[0.78rem] text-ink-mute">${esc(n.dateFa)}</span>

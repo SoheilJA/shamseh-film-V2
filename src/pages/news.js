@@ -1,5 +1,5 @@
 /** News archive — editorial magazine layout with search. */
-import { img, esc, fa, icons, seo } from '../js/utils.js';
+import { appUrl, img, esc, fa, icons, seo } from '../js/utils.js';
 import { headerHTML, footerHTML, mobileMenuHTML, searchOverlayHTML, initChrome } from '../components/Chrome.js';
 import { initMotion, gsap } from '../js/animations.js';
 import news from '../data/news.js';
@@ -60,7 +60,7 @@ export async function render(app) {
     const [d, m, y] = n.dateFa.split(' ');
     if (i === 0 && !q) {
       return `
-      <a href="/news/${n.slug}" class="group grid lg:grid-cols-12 gap-8 items-center pb-12 mb-12 border-b border-line reveal-in">
+      <a href="${appUrl(`/news/${n.slug}`)}" class="group grid lg:grid-cols-12 gap-8 items-center pb-12 mb-12 border-b border-line reveal-in">
         <div class="lg:col-span-7 leaf overflow-hidden aspect-[16/10] shadow-frame bg-sand zoomable">
           ${n.image ? `<img src="${img(n.image)}" alt="${esc(n.title)}" class="w-full h-full object-cover" loading="eager" />` : ''}
         </div>
@@ -79,7 +79,7 @@ export async function render(app) {
       </a>`;
     }
     return `
-    <a href="/news/${n.slug}" class="group grid grid-cols-[auto_1fr] md:grid-cols-[auto_1fr_auto] gap-x-6 md:gap-x-10 items-center py-6 border-b border-line reveal-in">
+    <a href="${appUrl(`/news/${n.slug}`)}" class="group grid grid-cols-[auto_1fr] md:grid-cols-[auto_1fr_auto] gap-x-6 md:gap-x-10 items-center py-6 border-b border-line reveal-in">
       <div class="text-center w-16 md:w-20">
         <p class="h-display text-3xl md:text-4xl text-teal-deep leading-none">${fa(d)}</p>
         <p class="label-mono !text-[0.55rem] mt-1.5">${esc(m)}</p>

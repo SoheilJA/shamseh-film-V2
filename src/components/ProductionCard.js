@@ -1,5 +1,5 @@
 /** Reusable production card (framed print + museum label + ghost numeral). */
-import { img, esc, fa } from '../js/utils.js';
+import { appUrl, img, esc, fa } from '../js/utils.js';
 
 /**
  * @param {object} p production
@@ -15,7 +15,7 @@ export function productionCard(p, { index = 0, size = 'std', flip = false } = {}
   };
   const cls = sizes[size] || sizes.std;
   return `
-  <a href="/productions/${p.slug}" class="print-card group/print relative block reveal-in ${size !== 'std' ? cls.split(' ')[0] : ''}" aria-label="${esc(p.title)} — ${esc(p.categoryFa)}">
+  <a href="${appUrl(`/productions/${p.slug}`)}" class="print-card group/print relative block reveal-in ${size !== 'std' ? cls.split(' ')[0] : ''}" aria-label="${esc(p.title)} — ${esc(p.categoryFa)}">
     <span class="ghost-num ${flip ? 'gold' : ''} ${flip ? '-top-8 -left-6' : '-top-8 -right-6'}" aria-hidden="true">${num}</span>
     <span class="print-frame leaf relative block overflow-hidden ${cls} ${flip ? 'leaf-flip' : ''} zoomable">
       ${p.poster ? `<img src="${img(p.poster)}" alt="تصویری از ${esc(p.title)}" class="w-full h-full object-cover" loading="${index < 3 ? 'eager' : 'lazy'}" decoding="async" />` : '<span class="grid w-full h-full place-items-center bg-sand text-ink-mute">بدون تصویر</span>'}
