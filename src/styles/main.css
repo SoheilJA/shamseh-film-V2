@@ -1,0 +1,667 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   SHAMSEH FILM — "Luminous Archive" Design System
+   Light theme grown from the logo: teal #44BABF, gold #DCBC57,
+   the Shamseh Leaf shape and geometric shamseh medallion pattern.
+   ========================================================================== */
+
+@theme {
+  /* -- Backgrounds (light, warm paper) -- */
+  --color-paper: #FBF8F1;          /* primary ivory */
+  --color-sand: #F3EEE2;           /* secondary sand */
+  --color-white: #FFFFFF;          /* elevated surfaces */
+  --color-ink-deep: #0B2F33;       /* deep teal ink (rare inverted sections) */
+
+  /* -- Brand (sampled from logo) -- */
+  --color-teal: #44BABF;           /* logo teal */
+  --color-teal-deep: #0C7A80;      /* AA-safe teal for text/links */
+  --color-teal-tint: #DDF3F3;      /* soft chips / hovers */
+  --color-gold: #DCBC57;           /* logo gold */
+  --color-gold-deep: #A9842A;      /* weighty gold details */
+  --color-gold-tint: #F6ECCB;      /* soft gold highlight */
+
+  /* -- Typography ink -- */
+  --color-ink: #12292C;            /* primary text (teal-black) */
+  --color-ink-soft: #4C6366;       /* secondary text */
+  --color-ink-mute: #7D8F91;       /* muted text */
+  --color-line: #E3DCCB;           /* hairline borders */
+
+  /* -- Fonts -- */
+  --font-display: "Estedad", "Vazirmatn FD", system-ui, sans-serif;
+  --font-body: "Vazirmatn FD", "Estedad", system-ui, sans-serif;
+  --font-serif-latin: "Instrument Serif", Georgia, serif;
+  --font-mono-latin: "JetBrains Mono", monospace;
+
+  /* -- Shamseh Leaf radius (two large opposite corners, two sharp) -- */
+  --radius-leaf: 3rem;
+  --radius-leaf-sm: 1.35rem;
+  --radius-leaf-xs: 0.8rem;
+
+  /* -- Shadows (soft, warm, natural) -- */
+  --shadow-frame: 0 1.5rem 3.5rem -1.25rem rgba(70, 60, 35, 0.18), 0 0.4rem 1rem -0.4rem rgba(70, 60, 35, 0.10);
+  --shadow-card: 0 0.8rem 2rem -0.8rem rgba(70, 60, 35, 0.14);
+  --shadow-float: 0 1rem 3rem -0.6rem rgba(11, 47, 51, 0.16);
+
+  /* -- Easing -- */
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-gentle: cubic-bezier(0.16, 0.84, 0.44, 1);
+}
+
+/* ----------------------------------------------------------------- fonts */
+@font-face {
+  font-family: "Estedad";
+  src: url("/fonts/Estedad-400.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Estedad";
+  src: url("/fonts/Estedad-500.woff2") format("woff2");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Estedad";
+  src: url("/fonts/Estedad-700.woff2") format("woff2");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Estedad";
+  src: url("/fonts/Estedad-800.woff2") format("woff2");
+  font-weight: 800; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Estedad";
+  src: url("/fonts/Estedad-900.woff2") format("woff2");
+  font-weight: 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Vazirmatn FD";
+  src: url("/fonts/Vazirmatn-FD-Regular.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Vazirmatn FD";
+  src: url("/fonts/Vazirmatn-FD-Medium.woff2") format("woff2");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Vazirmatn FD";
+  src: url("/fonts/Vazirmatn-FD-SemiBold.woff2") format("woff2");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Vazirmatn FD";
+  src: url("/fonts/Vazirmatn-FD-Bold.woff2") format("woff2");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Vazirmatn FD";
+  src: url("/fonts/Vazirmatn-FD-ExtraBold.woff2") format("woff2");
+  font-weight: 800; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Vazirmatn FD";
+  src: url("/fonts/Vazirmatn-FD-Black.woff2") format("woff2");
+  font-weight: 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("/fonts/InstrumentSerif.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/JetBrainsMono-400.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/JetBrainsMono-500.woff2") format("woff2");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+
+/* ------------------------------------------------------------- base */
+html {
+  scroll-behavior: smooth;
+}
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-teal);
+  color: #fff;
+}
+
+/* Focus ring — visible deep teal on ivory */
+:focus-visible {
+  outline: 2px solid var(--color-teal-deep);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Persian numerals everywhere (with FD font covering digits) */
+.font-fa-num { font-family: var(--font-body); }
+
+/* ---------------------------------------------------- Shamseh Leaf shape */
+/* The logo's leaf: rounded rect with two LARGE opposite corners (top-right &
+   bottom-left in LTR terms — mirrored naturally in RTL by border-radius
+   logical properties) and two sharp ones. */
+.leaf {
+  border-start-start-radius: var(--radius-leaf-xs);
+  border-start-end-radius: var(--radius-leaf);
+  border-end-start-radius: var(--radius-leaf);
+  border-end-end-radius: var(--radius-leaf-xs);
+}
+.leaf-sm {
+  border-start-start-radius: 6px;
+  border-start-end-radius: var(--radius-leaf-sm);
+  border-end-start-radius: var(--radius-leaf-sm);
+  border-end-end-radius: 6px;
+}
+.leaf-xs {
+  border-start-start-radius: 4px;
+  border-start-end-radius: var(--radius-leaf-xs);
+  border-end-start-radius: var(--radius-leaf-xs);
+  border-end-end-radius: 4px;
+}
+/* mirrored variant for alternating compositions */
+.leaf-flip {
+  border-start-start-radius: var(--radius-leaf);
+  border-start-end-radius: var(--radius-leaf-xs);
+  border-end-start-radius: var(--radius-leaf-xs);
+  border-end-end-radius: var(--radius-leaf);
+}
+
+/* leaf mask for images / video (clip-path approximating the leaf) */
+.leaf-mask {
+  clip-path: path("M 0 12 C 0 5.4 5.4 0 12 0 L 60 0 C 66.6 0 72 5.4 72 12 L 72 88 C 72 94.6 66.6 100 60 100 L 12 100 C 5.4 100 0 94.6 0 88 Z");
+}
+
+/* ----------------------------------------------- geometric shamseh pattern */
+/* eight-point star / interlacing line-art as an inline SVG background */
+.shamseh-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%232BB5BA' stroke-opacity='0.16' stroke-width='0.8'%3E%3Cpath d='M60 8 L74 46 L112 60 L74 74 L60 112 L46 74 L8 60 L46 46 Z'/%3E%3Cpath d='M60 22 L70 50 L98 60 L70 70 L60 98 L50 70 L22 60 L50 50 Z'/%3E%3Ccircle cx='60' cy='60' r='14'/%3E%3Cpath d='M0 0 L12 12 M120 0 L108 12 M0 120 L12 108 M120 120 L108 108'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 120px 120px;
+}
+.shamseh-pattern-gold {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23DCBC57' stroke-opacity='0.20' stroke-width='0.8'%3E%3Cpath d='M60 8 L74 46 L112 60 L74 74 L60 112 L46 74 L8 60 L46 46 Z'/%3E%3Cpath d='M60 22 L70 50 L98 60 L70 70 L60 98 L50 70 L22 60 L50 50 Z'/%3E%3Ccircle cx='60' cy='60' r='14'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 120px 120px;
+}
+/* deep-section variant: light strokes on teal ink */
+.shamseh-pattern-ink {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23FBF8F1' stroke-opacity='0.10' stroke-width='0.8'%3E%3Cpath d='M60 8 L74 46 L112 60 L74 74 L60 112 L46 74 L8 60 L46 46 Z'/%3E%3Cpath d='M60 22 L70 50 L98 60 L70 70 L60 98 L50 70 L22 60 L50 50 Z'/%3E%3Ccircle cx='60' cy='60' r='14'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 120px 120px;
+}
+
+/* sunburst rays (rotating slowly) — drawn as SVG conic rays */
+.sunburst {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='800' viewBox='0 0 800 800'%3E%3Cg stroke='%23DCBC57' stroke-opacity='0.30' stroke-width='1.1' fill='none'%3E%3Cpath d='M400 400 L400 0'/%3E%3Cpath d='M400 400 L566 34 M400 400 L676 124 M400 400 L766 234 M400 400 L800 400 M400 400 L766 566 M400 400 L676 676 M400 400 L566 766 M400 400 L400 800 M400 400 L234 766 M400 400 L124 676 M400 400 L34 566 M400 400 L0 400 M400 400 L34 234 M400 400 L124 124 M400 400 L234 34'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: cover;
+  background-position: center;
+}
+
+/* paper grain overlay */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 90;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
+
+/* --------------------------------------------------------- typography */
+.h-display {
+  font-family: var(--font-display);
+  font-weight: 900;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+}
+.h-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.35;
+}
+.label-mono {
+  font-family: var(--font-mono-latin);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-mute);
+}
+.label-mono-teal { color: var(--color-teal-deep); }
+.label-serif {
+  font-family: var(--font-serif-latin);
+  font-style: italic;
+  color: var(--color-gold-deep);
+}
+
+/* reading measure */
+.measure { max-width: 62ch; }
+.prose-fa p {
+  line-height: 2.05;
+  color: var(--color-ink-soft);
+  margin-bottom: 1.25rem;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* ------------------------------------------------------ ui components */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--color-teal-deep);
+  color: #fff;
+  font-weight: 600;
+  padding: 0.9rem 1.9rem;
+  transition: transform 0.35s var(--ease-soft), background 0.3s, box-shadow 0.35s;
+}
+.btn-primary:hover {
+  background: var(--color-ink-deep);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-float);
+}
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1px solid var(--color-line);
+  background: rgba(255,255,255,0.65);
+  color: var(--color-ink);
+  font-weight: 600;
+  padding: 0.9rem 1.9rem;
+  transition: transform 0.35s var(--ease-soft), border-color 0.3s, background 0.3s;
+}
+.btn-ghost:hover {
+  border-color: var(--color-teal);
+  background: var(--color-teal-tint);
+  transform: translateY(-2px);
+}
+
+/* chip (leaf-shaped category filter) */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1.1rem;
+  border: 1px solid var(--color-line);
+  background: #fff;
+  color: var(--color-ink-soft);
+  font-weight: 500;
+  font-size: 0.92rem;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-soft);
+}
+.chip .chip-count {
+  font-family: var(--font-mono-latin);
+  font-size: 0.62rem;
+  color: var(--color-ink-mute);
+}
+.chip:hover { border-color: var(--color-teal); color: var(--color-teal-deep); }
+.chip.active {
+  background: var(--color-teal-deep);
+  border-color: var(--color-teal-deep);
+  color: #fff;
+}
+.chip.active .chip-count { color: rgba(255,255,255,0.72); }
+
+/* museum label under framed prints */
+.museum-label {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.15rem 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--color-line);
+  margin-top: 0.85rem;
+}
+
+/* animated gold underline link */
+.link-underline {
+  position: relative;
+  display: inline-block;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 1.5px;
+  background: var(--color-gold);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.45s var(--ease-soft);
+}
+.link-underline:hover::after,
+.link-underline.active::after { transform: scaleX(1); }
+
+/* framed print */
+.print-frame {
+  background: #fff;
+  padding: 0.65rem;
+  border: 1px solid var(--color-line);
+  box-shadow: var(--shadow-frame);
+}
+.print-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* hairline rules */
+.rule-gold {
+  height: 1px;
+  background: linear-gradient(to left, transparent, var(--color-gold), transparent);
+  opacity: 0.6;
+}
+
+/* film-strip line art (perforation dots) */
+.film-strip {
+  background-image: radial-gradient(circle at center, var(--color-teal) 1.6px, transparent 1.8px);
+  background-size: 14px 14px;
+  opacity: 0.28;
+  height: 10px;
+}
+
+/* reveal-on-scroll base state (JS/GSAP animates in; keep visible if no JS) */
+.reveal { opacity: 0; transform: translateY(28px); }
+.no-js .reveal, .reveal.done { opacity: 1; transform: none; }
+
+/* image hover zoom inside frames */
+.zoomable { overflow: hidden; }
+.zoomable img {
+  transition: transform 0.9s var(--ease-soft), filter 0.5s;
+  will-change: transform;
+}
+.zoomable:hover img { transform: scale(1.055); }
+
+/* view-project circular badge */
+.view-badge {
+  position: absolute;
+  inset-inline-start: 1rem;
+  bottom: 1rem;
+  width: 5.2rem;
+  height: 5.2rem;
+  background: rgba(255, 255, 255, 0.93);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--color-line);
+  display: grid;
+  place-items: center;
+  z-index: 5;
+  opacity: 0;
+  transform: translateY(10px) rotate(-6deg);
+  transition: all 0.45s var(--ease-soft);
+}
+.group\/print:hover .view-badge,
+.print-card:hover .view-badge {
+  opacity: 1;
+  transform: translateY(0) rotate(0deg);
+}
+.view-badge svg { width: 44%; height: 44%; color: var(--color-teal-deep); }
+
+/* rotating circular text (SVG textPath) */
+.spin-text { animation: spin 18s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* soft light sweep over hero frame once */
+.light-sweep {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 252, 240, 0.55) 48%, rgba(255, 252, 240, 0.0) 60%);
+  transform: translateX(-130%);
+}
+
+/* header states */
+.site-header {
+  transition: transform 0.5s var(--ease-soft), background 0.4s, box-shadow 0.4s, border-color 0.4s;
+}
+.site-header.floating {
+  background: rgba(251, 248, 241, 0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--color-line);
+  box-shadow: 0 0.5rem 1.6rem -0.8rem rgba(70, 60, 35, 0.12);
+}
+.site-header.hidden-down { transform: translateY(-110%); }
+
+/* nav sunburst dot for active item */
+.nav-dot {
+  position: absolute;
+  top: 50%;
+  inset-inline-start: -0.9rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  transform: translateY(-50%) scale(0);
+  transition: transform 0.35s var(--ease-soft);
+  background: radial-gradient(circle, var(--color-gold) 0 45%, transparent 55%);
+}
+.nav-link.active .nav-dot { transform: translateY(-50%) scale(1); }
+
+/* custom cursor (desktop, pointer:fine only) */
+.cursor-leaf {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 1.6rem;
+  height: 1.6rem;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: multiply;
+  opacity: 0;
+}
+.cursor-leaf .inner {
+  width: 100%;
+  height: 100%;
+  background: var(--color-teal);
+  opacity: 0.35;
+  transition: transform 0.3s var(--ease-soft), opacity 0.3s;
+  display: grid;
+  place-items: center;
+}
+.cursor-leaf .cursor-text {
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.cursor-leaf.grow .inner { transform: scale(3.1); opacity: 0.92; }
+.cursor-leaf.grow .cursor-text { opacity: 1; }
+@media (pointer: coarse) { .cursor-leaf { display: none; } }
+
+/* page transition curtain */
+.page-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+  background: var(--color-paper);
+  transform: translateY(0);
+  display: grid;
+  place-items: center;
+}
+
+/* lightbox (ivory translucent, ink controls) */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  background: rgba(251, 248, 241, 0.96);
+  backdrop-filter: blur(10px);
+  display: grid;
+  place-items: center;
+}
+.lightbox figure { max-width: min(92vw, 1100px); }
+.lightbox img {
+  max-height: 82vh;
+  max-width: 100%;
+  object-fit: contain;
+  box-shadow: var(--shadow-frame);
+}
+
+/* dropdown mega panel */
+.mega-panel {
+  position: absolute;
+  top: 100%;
+  inset-inline: 0;
+  background: #fff;
+  border: 1px solid var(--color-line);
+  border-top: 2px solid var(--color-gold);
+  box-shadow: var(--shadow-float);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: all 0.4s var(--ease-soft);
+}
+.has-mega:hover .mega-panel,
+.has-mega:focus-within .mega-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* accordion category panels */
+.cat-panel {
+  transition: flex-grow 0.65s var(--ease-soft), max-width 0.65s var(--ease-soft);
+}
+.cat-panel .cat-detail {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: all 0.5s 0.15s var(--ease-soft);
+}
+.cat-panel.open .cat-detail { opacity: 1; transform: none; }
+
+/* reading progress line */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  inset-inline-start: 0;
+  height: 2.5px;
+  width: 100%;
+  transform-origin: right;
+  background: linear-gradient(to left, var(--color-teal), var(--color-gold));
+  transform: scaleX(0);
+  z-index: 120;
+}
+
+/* aparat video frame wrapper */
+.aparat-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+.aparat-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* subtle helper utilities */
+.bg-paper { background: var(--color-paper); }
+.bg-sand { background: var(--color-sand); }
+.text-balance { text-wrap: balance; }
+
+/* hide scrollbars on horizontal chip rails */
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* line clamp helpers */
+.line-clamp-1 { display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden; }
+.line-clamp-2 { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+
+/* mega panel fix (visibility handled by .has-mega rules) */
+.has-mega .mega-panel { visibility: hidden; }
+.has-mega:hover .mega-panel,
+.has-mega:focus-within .mega-panel { visibility: visible; }
+
+/* number ghosts behind prints */
+.ghost-num {
+  position: absolute;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(6rem, 14vw, 11rem);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(68, 186, 191, 0.35);
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+}
+.ghost-num.gold { -webkit-text-stroke-color: rgba(220, 188, 87, 0.4); }
+
+/* marquee ticker */
+.marquee-track {
+  display: flex;
+  gap: 3.5rem;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+@keyframes marquee { to { transform: translateX(50%); } }
+
+/* search overlay */
+.search-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 160;
+  background: rgba(251, 248, 241, 0.97);
+  backdrop-filter: blur(14px);
+}
+
+/* mobile menu leaf expanding mask */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 140;
+  background: var(--color-paper);
+  clip-path: circle(0% at calc(100% - 2.6rem) 2.6rem);
+  transition: clip-path 0.65s var(--ease-soft);
+  overflow-y: auto;
+}
+.mobile-menu.open { clip-path: circle(150% at calc(100% - 2.6rem) 2.6rem); }
+
+/* staggered nav entrance helpers */
+.stagger-item {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: all 0.55s var(--ease-soft);
+}
+.mobile-menu.open .stagger-item {
+  opacity: 1;
+  transform: none;
+}
+.mobile-menu.open .stagger-item:nth-child(1) { transition-delay: 0.16s; }
+.mobile-menu.open .stagger-item:nth-child(2) { transition-delay: 0.21s; }
+.mobile-menu.open .stagger-item:nth-child(3) { transition-delay: 0.26s; }
+.mobile-menu.open .stagger-item:nth-child(4) { transition-delay: 0.31s; }
+.mobile-menu.open .stagger-item:nth-child(5) { transition-delay: 0.36s; }
+.mobile-menu.open .stagger-item:nth-child(6) { transition-delay: 0.41s; }
+.mobile-menu.open .stagger-item:nth-child(7) { transition-delay: 0.46s; }
+.mobile-menu.open .stagger-item:nth-child(8) { transition-delay: 0.51s; }
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001s !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .marquee-track { animation: none; }
+}
