@@ -24,7 +24,7 @@ const pageEntries = {
 };
 
 export default defineConfig({
-  base: '/shamseh-film-V2/',
+  base: process.env.CF_PAGES ? '/' : '/shamseh-film-V2/',
   plugins: [tailwindcss(), pageEntries],
   server: {
     port: 5173,
