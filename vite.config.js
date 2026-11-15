@@ -3,7 +3,7 @@ import tailwindcss from '@tailwindcss/vite';
 import productions from './src/data/productions.js';
 import news from './src/data/news.js';
 
-// GitHub Pages has no History API fallback, so emit an entry for each route.
+// Emit an entry for each route so direct links and refreshes work without a History API fallback.
 const pageEntries = {
   name: 'pages-route-entries',
   generateBundle: {
@@ -24,7 +24,7 @@ const pageEntries = {
 };
 
 export default defineConfig({
-  base: process.env.CF_PAGES ? '/' : '/shamseh-film-V2/',
+  base: '/',
   plugins: [tailwindcss(), pageEntries],
   server: {
     port: 5173,
